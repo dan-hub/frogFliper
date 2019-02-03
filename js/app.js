@@ -60,21 +60,27 @@ for(let i = 1; i <= 4; i++){
 hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
-		/*if(player.y <= 44){
+		if(player.y <= 44){
 			break;
-		}*/
+		}
 		player.y -= 83;
 		break;
 	case "down":
-		/*if(player.y >= -44 + 83 * 5){
+		if(player.y >= -44 + 83 * 5){
 			break;
-		}*/
+		}
 		player.y += 83;
 		break;
 	case "left":
+		if(player.x <= 0){
+			break;
+		}
 		player.x -= 101;
 		break;
 	case "right":
+		if(player.x >= 404){
+			break;
+		}
 		player.x += 101;
 		break;
  }
