@@ -8,6 +8,7 @@ class Enemy{
 	    // ajudante que é fornecido para carregar imagens
 	    // com facilidade.
 		this.sprite = 'images/enemy-bug.png';
+		
 	}
 	// Atualize a posição do inimigo, método exigido pelo jogo
 	// Parâmetro: dt, um delta de tempo entre ticks
@@ -25,14 +26,21 @@ class Enemy{
 class Char{
 	constructor(){
 		this.sprite = 'images/char-boy.png';
+		this.x = 202;
+		//Considerando que:
+		//Primeiro: a imagem de cada bloco tem 171px de altura;
+		//Segundo: o y "andavel" de cada bloco tem 83px;
+		//Terceiro: o subsolo é igual a parte invisivel;
+		//sabemos que a parte invisivel é = (171 - 83) / 2 = 44;
+		this.y = -44 + 83 * 5;
+
 	}
 
 	update(){
-
 	}
 
 	render(){
-		//ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 	}
 
 	
@@ -53,8 +61,8 @@ for(let i = 1; i <= 4; i++){
   switch(handler.key){
 	case "up":alert('you pressed up');break;
 	case "down":alert('you pressed down');break;
-	case "left":alert('you pressed left');break;
-	case "right":alert('you pressed right');break;
+	case "left":update(-100);break;
+	case "right":update(100);break;
  }
 });
 */
