@@ -69,9 +69,12 @@ hotkeys('up,down,left,right', function(event,handler) {
 		
 		player.y -= 83;
 
+		//Verificação abaixo serve para saber se o char está na agua,
+		//Caso sim, abre uma contagem para ver se ele continuara na agua
+		//Caso continuar, o jogo é resetado
 		if(player.y < 39){
 			console.log("AGUA");
-			new Promise(function () {
+			
 			    window.setTimeout(function verificaAfogamento() {
 			    	if(player.y < 39){
 			    		console.log("Ainda está na agua");
@@ -79,8 +82,6 @@ hotkeys('up,down,left,right', function(event,handler) {
 			    		console.log("Não está mais na agua");
 			    	}
 			    }, 2000);
-			});
-
 		}
 		console.log(`x: ${player.x}
 					 y: ${player.y}`);
