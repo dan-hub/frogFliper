@@ -57,12 +57,26 @@ for(let i = 1; i <= 4; i++){
 // Coloque todos os objetos inimgos numa array allEnemies
 // Coloque o objeto do jogador numa variável chamada jogador.
 
-/*hotkeys('up,down,left,right', function(event,handler) {
+hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
-	case "up":alert('you pressed up');break;
-	case "down":alert('you pressed down');break;
-	case "left":update(-100);break;
-	case "right":update(100);break;
+	case "up":
+		/*if(player.y <= 44){
+			break;
+		}*/
+		player.y -= 83;
+		break;
+	case "down":
+		/*if(player.y >= -44 + 83 * 5){
+			break;
+		}*/
+		player.y += 83;
+		break;
+	case "left":
+		player.x -= 101;
+		break;
+	case "right":
+		player.x += 101;
+		break;
  }
 });
-*/
+
