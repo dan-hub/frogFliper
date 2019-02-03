@@ -60,28 +60,60 @@ for(let i = 1; i <= 4; i++){
 hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
-		if(player.y <= 44){
+		if(player.y === -44){
+			
+			console.log(`x: ${player.x}
+					 y: ${player.y}`);
 			break;
 		}
+		
 		player.y -= 83;
+
+		if(player.y < 39){
+			console.log("AGUA");
+			new Promise(function () {
+			    window.setTimeout(function verificaAfogamento() {
+			    	if(player.y < 39){
+			    		console.log("Ainda está na agua");
+			    	}else{
+			    		console.log("Não está mais na agua");
+			    	}
+			    }, 2000);
+			});
+
+		}
+		console.log(`x: ${player.x}
+					 y: ${player.y}`);
 		break;
 	case "down":
 		if(player.y >= -44 + 83 * 5){
+			console.log(`x: ${player.x}
+					 y: ${player.y}`);
 			break;
 		}
 		player.y += 83;
+		console.log(`x: ${player.x}
+					 y: ${player.y}`);
 		break;
 	case "left":
 		if(player.x <= 0){
+			console.log(`x: ${player.x}
+					 y: ${player.y}`);
 			break;
 		}
 		player.x -= 101;
+		console.log(`x: ${player.x}
+					 y: ${player.y}`);
 		break;
 	case "right":
 		if(player.x >= 404){
+			console.log(`x: ${player.x}
+					 y: ${player.y}`);
 			break;
 		}
 		player.x += 101;
+		console.log(`x: ${player.x}
+					 y: ${player.y}`);
 		break;
  }
 });
