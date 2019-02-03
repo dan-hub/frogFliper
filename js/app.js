@@ -61,6 +61,7 @@ hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
 		if(player.y <= 44){
+			console.log('git test');
 			break;
 		}
 		player.y -= 83;
