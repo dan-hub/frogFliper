@@ -51,16 +51,19 @@ class Enemy{
 class Char{
 	constructor(){
 		this.sprite = 'images/char-boy.png';
+		this.reset();
+
+	}
+
+	reset(){
 		this.x = 202;
 		//Considerando que:
 		//Primeiro: a imagem de cada bloco tem 171px de altura;
 		//Segundo: o y "andavel" de cada bloco tem 83px;
 		//Terceiro: o subsolo é igual a parte invisivel;
 		//sabemos que a parte invisivel é = (171 - 83) / 2 = 44;
-		this.y = -44 + 83 * 5;
-
+		this.y = -23 + 83 * 5;
 	}
-
 	update(){
 	}
 
@@ -85,13 +88,13 @@ for(let i = 1; i <= 4; i++){
 hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
-		if(player.y <= 44){
+		if(player.y <= 60){
 			break;
 		}
 		player.y -= 83;
 		break;
 	case "down":
-		if(player.y >= -44 + 83 * 5){
+		if(player.y >= -23 + 83 * 5){
 			break;
 		}
 		player.y += 83;
