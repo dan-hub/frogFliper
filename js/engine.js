@@ -49,7 +49,9 @@ var Engine = (function(global) {
          * função update, pois ele pode ser usado para melhorar a animação.
          */
         update(dt);
+        hitCheck();
         render();
+
 
         /* Defina a variável lastTime, que será usada para definir o delta
          * de tempo na próxima vez em que essa função for chamada.
@@ -60,6 +62,16 @@ var Engine = (function(global) {
          * função novamente quando o navegador puder desenhar outro frame.
          */
         win.requestAnimationFrame(main);
+    }
+
+    function hitCheck(){
+        for(let ene of allEnemies){
+            if(ene.y == player.y && (ene.x <= player.x + 51 && ene.x >= player.x - 51)){
+                //Valor de 51 para não permitir que o player passe por cima do bug, levando em conta
+                //que as imagens tem 101px de largura
+                player.reset();
+            }
+        }
     }
 
     /* Esta função faz algumas configurações iniciais que só devem ocorrer
@@ -84,7 +96,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        
     }
 
     /* É chamada pela função update, faz loops por todos os objetos dentro
