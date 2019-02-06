@@ -9,17 +9,42 @@ class Enemy{
 	    // com facilidade.
 		this.sprite = 'images/enemy-bug.png';
 		
+		this.raffle();
+
+		
 	}
 	// Atualize a posição do inimigo, método exigido pelo jogo
 	// Parâmetro: dt, um delta de tempo entre ticks
 	update(dt){
-		// Você deve multiplicar qualquer movimento pelo parâmetro
-	    // dt, o que garantirá que o jogo rode na mesma velocidade
-	    // em qualquer computador.
+		this.x += dt * this.speed;
+		if(this.x >= 606){
+			this.raffle();
+		}
 	}
 	// Desenhe o inimigo na tela, método exigido pelo jogo
 	render(){
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+	}
+
+	//Responsavel por:
+	//sorteio da linha de respwan,
+	//Velocidade,
+	//e rebobinar a posição de x
+	raffle(){
+		//Temos 3 linhas de locomoção para os enemies, 
+		//logo iremos numera-las de 0 a 2 de cima para baixo
+		this.linha = Math.floor(Math.random() * 3);
+		switch(this.linha){
+			case 0: this.y = 60;
+					break;
+			case 1: this.y = 60 + 83;
+					break;
+			case 2: this.y = 60 + 2*83;
+					break;
+		}
+		this.x = -101 * 3;
+		//Velocidade terá 300 niveis (deverá ser multiplicada por dt)
+		this.speed = Math.floor(Math.random() * (400 - 100 +1) + 100);
 	}
 }
 
@@ -61,7 +86,6 @@ hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
 		if(player.y <= 44){
-			console.log('git test');
 			break;
 		}
 		player.y -= 83;
@@ -85,5 +109,6 @@ hotkeys('up,down,left,right', function(event,handler) {
 		player.x += 101;
 		break;
  }
+ console.log(`Coordenadas[x: ${player.x}, y: ${player.y}]`);
 });
 
