@@ -101,8 +101,7 @@ hotkeys('up,down,left,right', function(event,handler) {
 			    window.setTimeout(function verificaAfogamento() {
 			    	if(player.y < 0){
 
-			    		player.y = -44 + 83 * 5;
-			    		player.x = 202;
+			    		player.reset();
 			    	}else{
 			    		console.log("Não está mais na agua");
 			    	}
