@@ -8,10 +8,10 @@ class Enemy{
 	    // ajudante que é fornecido para carregar imagens
 	    // com facilidade.
 		this.sprite = 'images/enemy-bug.png';
-		
+
 		this.raffle();
 
-		
+
 	}
 	// Atualize a posição do inimigo, método exigido pelo jogo
 	// Parâmetro: dt, um delta de tempo entre ticks
@@ -31,7 +31,7 @@ class Enemy{
 	//Velocidade,
 	//e rebobinar a posição de x
 	raffle(){
-		//Temos 3 linhas de locomoção para os enemies, 
+		//Temos 3 linhas de locomoção para os enemies,
 		//logo iremos numera-las de 0 a 2 de cima para baixo
 		this.linha = Math.floor(Math.random() * 3);
 		switch(this.linha){
@@ -71,7 +71,7 @@ class Char{
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 	}
 
-	
+
 }
 
 let player = new Char(),
@@ -88,30 +88,52 @@ for(let i = 1; i <= 4; i++){
 hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
-		if(player.y <= 60){
+		if(player.y <= -44){
 			break;
 		}
+
 		player.y -= 83;
+
+		//Verificação abaixo serve para saber se o char está na agua,
+		//Caso sim, abre uma contagem para ver se ele continuara na agua
+		//Caso continuar, o jogo é resetado
+		if(player.y < 0){
+			    window.setTimeout(function verificaAfogamento() {
+			    	if(player.y < 0){
+
+			    		player.y = -44 + 83 * 5;
+			    		player.x = 202;
+			    	}else{
+			    		console.log("Não está mais na agua");
+			    	}
+			    }, 2000);
+		}
+
 		break;
 	case "down":
 		if(player.y >= -23 + 83 * 5){
 			break;
 		}
+
 		player.y += 83;
+
 		break;
 	case "left":
 		if(player.x <= 0){
+
 			break;
 		}
 		player.x -= 101;
+
 		break;
 	case "right":
 		if(player.x >= 404){
+
 			break;
 		}
 		player.x += 101;
+
 		break;
  }
  console.log(`Coordenadas[x: ${player.x}, y: ${player.y}]`);
 });
-
