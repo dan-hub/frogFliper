@@ -33,6 +33,8 @@ class Char{
 		//Terceiro: o subsolo é igual a parte invisivel;
 		//sabemos que a parte invisivel é = (171 - 83) / 2 = 44;
 		this.y = -44 + 83 * 5;
+		this.aguaFlag = false;
+		this.aguaCancel = true;
 
 	}
 
@@ -61,9 +63,6 @@ hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
 		if(player.y === -44){
-			
-			console.log(`x: ${player.x}
-					 y: ${player.y}`);
 			break;
 		}
 		
@@ -72,50 +71,45 @@ hotkeys('up,down,left,right', function(event,handler) {
 		//Verificação abaixo serve para saber se o char está na agua,
 		//Caso sim, abre uma contagem para ver se ele continuara na agua
 		//Caso continuar, o jogo é resetado
-		if(player.y < 39){
-			console.log("AGUA");
-			
+		if(player.y < 0){
 			    window.setTimeout(function verificaAfogamento() {
-			    	if(player.y < 39){
-			    		console.log("Ainda está na agua");
+			    	if(player.y < 0){
+			    		
+			    		player.y = -44 + 83 * 5;
+			    		player.x = 202;
 			    	}else{
 			    		console.log("Não está mais na agua");
 			    	}
 			    }, 2000);
 		}
-		console.log(`x: ${player.x}
-					 y: ${player.y}`);
+
 		break;
 	case "down":
+
 		if(player.y >= -44 + 83 * 5){
-			console.log(`x: ${player.x}
-					 y: ${player.y}`);
 			break;
 		}
+		
 		player.y += 83;
-		console.log(`x: ${player.x}
-					 y: ${player.y}`);
+
 		break;
 	case "left":
 		if(player.x <= 0){
-			console.log(`x: ${player.x}
-					 y: ${player.y}`);
+
 			break;
 		}
 		player.x -= 101;
-		console.log(`x: ${player.x}
-					 y: ${player.y}`);
+
 		break;
 	case "right":
 		if(player.x >= 404){
-			console.log(`x: ${player.x}
-					 y: ${player.y}`);
+
 			break;
 		}
 		player.x += 101;
-		console.log(`x: ${player.x}
-					 y: ${player.y}`);
+
 		break;
  }
+ console.log(`${player.x}, ${player.y}`)
 });
 
