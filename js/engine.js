@@ -1,3 +1,4 @@
+
 /* Engine.js
  * Este arquivo mostra a funcionalidade do loop do jogo (render e entidades
  * de update), esboça o tabuleiro inicial do jogo na tela e, depois, chama
@@ -31,6 +32,13 @@ var Engine = (function(global) {
     canvas.height = 606;
     doc.body.appendChild(canvas);
 
+    //Configurações de fonte
+    ctx.font = '30pt VT323';
+    ctx.textAlign = 'center';
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 3;
+    ctx.fillStyle = 'black';
+
     /* Esta função age como o ponto de largada do loop do jogo em si e
      * lida com as chamadas dos métodos render e update de forma adequada.
      */
@@ -53,6 +61,7 @@ var Engine = (function(global) {
         render();
 
 
+
         /* Defina a variável lastTime, que será usada para definir o delta
          * de tempo na próxima vez em que essa função for chamada.
          */
@@ -64,14 +73,19 @@ var Engine = (function(global) {
         win.requestAnimationFrame(main);
     }
 
+
+    /* Função para verificação de colisão*/
     function hitCheck(){
         for(let ene of allEnemies){
             if(ene.y == player.y && (ene.x <= player.x + 51 && ene.x >= player.x - 51)){
                 //Valor de 51 para não permitir que o player passe por cima do bug, levando em conta
                 //que as imagens tem 101px de largura
+                score.reset();
                 player.reset();
+                
             }
         }
+
     }
 
     /* Esta função faz algumas configurações iniciais que só devem ocorrer
@@ -96,7 +110,14 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        
+        updateScore();
+    }
+
+    function updateScore(){
+        //Verifica se está na area de pontuação
+        if(player.y >= 60 && player.y <= 226){
+            score.add();
+        }
     }
 
     /* É chamada pela função update, faz loops por todos os objetos dentro
@@ -156,6 +177,7 @@ var Engine = (function(global) {
         }
 
         renderEntities();
+        renderScore(score);
     }
 
     /* Esta função é chamada pela função render, e isso ocorre a cada tique
@@ -173,6 +195,10 @@ var Engine = (function(global) {
         player.render();
     }
 
+    function renderScore(score){
+        ctx.fillText(`Score: ${Math.round(score.points/10)}`, 410,45);
+        ctx.fillText(`Best: ${Math.round(score.best/10)}`, 85,45);
+    }
     /* Esta função não faz nada, mas pode ser um bom local para lidar com os
      * estados de reinicialização do jogo - talvez, um novo menu de jogo, uma
      * tela de fim de jogo ou coisas assim. É chamada só uma vez pelo

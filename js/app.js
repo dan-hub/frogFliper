@@ -1,3 +1,21 @@
+class Score{
+	constructor(){
+		this.points= 0;
+		this.best = 0;
+	}
+
+	reset(){
+		if(this.points > this.best){
+			this.best = this.points;
+			console.log(this.best);
+		}
+		this.points= 0;
+		
+	}
+	add(){
+		this.points++;
+	}
+}
 // Inimigos que nosso jogador deve evitar
 class Enemy{
 	constructor(){
@@ -75,11 +93,13 @@ class Char{
 }
 
 let player = new Char(),
-	allEnemies = [];
+	allEnemies = [],
+	score = new Score();
 for(let i = 1; i <= 4; i++){
 	let enemy = new Enemy();
 	allEnemies.push(enemy);
 }
+
 
 // Represente seus objetos como instâncias.
 // Coloque todos os objetos inimgos numa array allEnemies
@@ -88,7 +108,7 @@ for(let i = 1; i <= 4; i++){
 hotkeys('up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
-		if(player.y <= -44){
+		if(player.y <= -23){
 			break;
 		}
 
@@ -100,8 +120,8 @@ hotkeys('up,down,left,right', function(event,handler) {
 		if(player.y < 0){
 			    window.setTimeout(function verificaAfogamento() {
 			    	if(player.y < 0){
-
 			    		player.reset();
+			    		score.reset();
 			    	}else{
 			    		console.log("Não está mais na agua");
 			    	}
