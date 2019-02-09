@@ -1,3 +1,24 @@
+//A estrela sempre estará lá, somente é controlada a sua visibilidade e sua capacidade de ser pega
+class Star{
+	constructor(){
+		//Quantidade de estrelas pegas pelo jogador, isso irá influenciar na skin seguinte
+		this.prestiges = 0;
+		this.visivel = false;
+		//False = player não pegou a estrela; True = player pegou a estrela.
+		this.coletaStatus = false;
+	}
+
+
+	setVisivel(){
+		this.visivel = true;
+	}
+	reset(){
+		this.visivel = false;
+		this.coletaStatus = false;
+	}
+}
+
+//Objeto para controle do placar do game
 class Score{
 	constructor(){
 		this.points= 0;
@@ -89,12 +110,26 @@ class Char{
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 	}
 
+	coletar(){
+		console.log("Dando prestige na estrela...");
+		star.prestiges++;
+		star.visivel = false;
+		star.coletaStatus = true;
+	}
+
+	prestige(){
+		star.reset();
+		player.reset();
+		score.reset();
+	}
+
 
 }
 
 let player = new Char(),
 	allEnemies = [],
-	score = new Score();
+	score = new Score(),
+	star = new Star();
 for(let i = 1; i <= 4; i++){
 	let enemy = new Enemy();
 	allEnemies.push(enemy);
@@ -105,7 +140,7 @@ for(let i = 1; i <= 4; i++){
 // Coloque todos os objetos inimgos numa array allEnemies
 // Coloque o objeto do jogador numa variável chamada jogador.
 
-hotkeys('up,down,left,right', function(event,handler) {
+hotkeys('space,up,down,left,right', function(event,handler) {
   switch(handler.key){
 	case "up":
 		if(player.y <= -23){
@@ -153,6 +188,23 @@ hotkeys('up,down,left,right', function(event,handler) {
 		player.x += 101;
 
 		break;
+
+		//Comando para dar o prestige e obter a skin seguinte
+	case "space":
+		if(star.coletaStatus && star.prestiges <= 3){
+			switch(star.prestiges){
+				case 1: player.sprite = 'images/char-cat-girl.png'; break;
+				case 2: player.sprite = 'images/char-pink-girl.png'; break;
+				case 3: player.sprite = 'images/char-princess-girl.png'; break;
+			}
+			player.prestige();
+		}
+		
+ }
+ if(player.x === 202 && player.y === 143 && star.visivel){
+ 	//Dar prestige
+ 	player.coletar();
  }
  console.log(`Coordenadas[x: ${player.x}, y: ${player.y}]`);
+ jump.play();
 });

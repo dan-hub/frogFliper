@@ -22,11 +22,15 @@ var Engine = (function(global) {
      * canvas, configure a altura/largura dos elementos do
      * canvas e adicione isso ao DOM.
      */
+
     var doc = global.document,
         win = global.window,
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
-        lastTime;
+        lastTime,
+        //hit = doc.querySelector('#hit'),
+        jump = doc.querySelector('#jump');
+
 
     canvas.width = 505;
     canvas.height = 606;
@@ -82,6 +86,7 @@ var Engine = (function(global) {
                 //que as imagens tem 101px de largura
                 score.reset();
                 player.reset();
+                //hit.play();
                 
             }
         }
@@ -117,6 +122,11 @@ var Engine = (function(global) {
         //Verifica se está na area de pontuação
         if(player.y >= 60 && player.y <= 226){
             score.add();
+            //Condição serve para não permitir que novas estrelas apareçam com uma no "bolso"
+            //Também para bloquear o spawn de estralhas no ultimo prestige
+            if(score.points >= 99 && star.coletaStatus == false && star.prestiges <= 3){
+                star.setVisivel();
+            }
         }
     }
 
@@ -175,11 +185,27 @@ var Engine = (function(global) {
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
         }
+        //Reatribuição para não ficar ficar do mesmo tamanho da mensagem de prestige, ja o tamanho dessa mensagem
+        //é setado em execução
+        ctx.font = '30pt VT323';
 
         renderEntities();
         renderScore(score);
+
+        //Verifica a flag de visibilidade de star
+        if(star.visivel){
+            renderStar();
+        }
+        //Verifica se tem star no "bolso"
+        if(star.coletaStatus){
+            ctx.font = '10pt VT323';
+            ctx.fillText(`PRESS SPACE TO PRESTIGE`, canvas.width/2 ,45);
+        }
     }
 
+    function renderStar(){
+        ctx.drawImage(Resources.get('images/Star.png'), 202, 143);
+    }
     /* Esta função é chamada pela função render, e isso ocorre a cada tique
      * do jogo. Seu propósito é chamar as funções render que você definiu
      * nas entidades de seu jogador e seus inimigos dentro do app.js
@@ -218,7 +244,12 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-boy.png'
+        'images/char-boy.png',
+        'images/char-cat-girl.png',
+        'images/char-pink-girl.png',
+        'images/char-princess-girl.png',
+        'images/Star.png'
+
     ]);
     Resources.onReady(init);
 
