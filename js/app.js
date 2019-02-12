@@ -16,6 +16,11 @@ class Star{
 		this.visivel = false;
 		this.coletaStatus = false;
 	}
+	death(){
+		this.reset();
+		this.prestiges = 0;
+		player.sprite = 'images/char-boy.png';
+	}
 }
 
 //Objeto para controle do placar do game

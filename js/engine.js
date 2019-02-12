@@ -86,6 +86,9 @@ var Engine = (function(global) {
                 //que as imagens tem 101px de largura
                 score.reset();
                 player.reset();
+                star.reset();
+                star.death();
+
                 //hit.play();
                 
             }
@@ -124,7 +127,7 @@ var Engine = (function(global) {
             score.add();
             //Condição serve para não permitir que novas estrelas apareçam com uma no "bolso"
             //Também para bloquear o spawn de estralhas no ultimo prestige
-            if(score.points >= 999 && star.coletaStatus == false && star.prestiges <= 3){
+            if(score.points >= 99 && star.coletaStatus == false && star.prestiges <= 3){
                 star.setVisivel();
             }
         }
