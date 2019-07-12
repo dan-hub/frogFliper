@@ -16,10 +16,10 @@ class Star{
 		this.visivel = false;
 		this.coletaStatus = false;
 	}
-	death(){
+	death(instancePlayer){
 		this.reset();
 		this.prestiges = 0;
-		player.sprite = 'images/char-boy.png';
+		instancePlayer.sprite = 'images/char-boy.png';
 	}
 }
 

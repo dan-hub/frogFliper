@@ -87,7 +87,7 @@ var Engine = (function(global) {
                 score.reset();
                 player.reset();
                 star.reset();
-                star.death();
+                star.death(player);
 
                 //hit.play();
                 
